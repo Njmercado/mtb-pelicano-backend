@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  backend:
+    container_name: admin_app_backend
+    build: .
+    working_dir: /src
+    env_file: .env
+    restart: always
+    volumes:
+      - .:/src
+    command: ["npm", "run", "dev"]
+    ports: 
+      - 3000:3000
+  mysql:
+    image: mysql:8.0.1
+    container_name:  admin_app_db
+    restart: always
+    expose:
+      - ${DB_PORT}
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    environment: 
+      - MYSQL_DATABASE=${DB}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_USER_PASSWORD=${DB_USER_PASSWORD}
+    volumes:
+      - mysql:/var/lib/mysql
+
+volumes:
+  mysql:
