@@ -6,19 +6,27 @@ module.exports = class Charge {
         console.log("hi from charge")
     }
 
-    deleteCharge(chargeId, userEmail) {
-        const query = `delete from charge where charge_id=? and user_email=?`
-        const response = mysqlDB.query(query, [chargeId, userEmail])
-        console.log(response)
-        return true
+    delete(charge_id, email) {
+        const query = `delete from charge where charge_id=? and email=?;`
+        const response = mysqlDB.query(query, [charge_id, email], function(error, response) {
+            if(error) console.error("Error deleting charge: ", error)
+            console.log("No error deleting charge: ", response)
+        })
+        return response
     }
 
-    createCharge(data) {
+    create(data) {
         const query = `insert into charge set ?`
         const response = mysqlDB.query(query, data, function(error, response) {
             if(error) console.error(error)
             console.log(response)
         })
+        return response
+    }
+
+    async getAllCharges(email) {
+        const query = `select * from charge where email = ?`
+        const response = await mysqlDB.query(query, email)
         return response
     }
 }
