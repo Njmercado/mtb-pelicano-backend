@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const User = require('../utils/queries/user')
+const user = new User()
 const Token = require('../middlewares/token');
 const token = new Token()
 
-router.get('/', (req, res, next) => {
+router.get('/', user.verify, (req, res, next) => {
     try{
         const {email, password} = req.body
         const newToken = token.create({email, password})
