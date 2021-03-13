@@ -19,16 +19,16 @@ connection.connect(function(error) {
     //TODO: Está comentado mientras se esté en etapa de desarrollo, para evitar excesos de logs en la consola.
     //Creating tables
     //users
-    // connection.query(usersTable, (error, result) => {
-    //     if(error) throw error;
-    //     console.log("Users Table created")
-    // })
+    connection.query(usersTable, (error, result) => {
+        if(error) throw error;
+        console.log("Users Table created")
+    })
 
     //charges
-    // connection.query(chargesTable, (error, result) => {
-    //     if(error) throw error;
-    //     console.log("Charges Table created")
-    // })
+     connection.query(chargesTable, (error, result) => {
+        if(error) throw error;
+        console.log("Charges Table created")
+    })
 
     //others
 })

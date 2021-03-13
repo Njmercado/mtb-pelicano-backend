@@ -9,6 +9,7 @@ module.exports = class User {
 
     async verify(req, res, next) {
         const {email, password} = req.body
+        console.log(email, password)
         let query = `select * from user where email = ? and password = ?;`
         const inserts = [email, password]
         query = mysqlDB.format(query, inserts)
@@ -26,7 +27,7 @@ module.exports = class User {
             } 
             next()
         }
-        else res.status(400).send({
+        else res.status(200).send({
             message: "Invalid credentials",
             error: true,
             data: null
